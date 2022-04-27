@@ -15,6 +15,10 @@ let counterSeconds = 0;
 let counterMinutes = 0;
 let counterHours = 0;
 let counterDays = 0;
+localStorage.getItem("seconds");
+localStorage.getItem("minutes");
+localStorage.getItem("hours");
+localStorage.getItem("days");
 
 //functions and eventsListener
 
@@ -60,10 +64,10 @@ start.addEventListener("click", () => {
 
     //show the same timer but on the page title
     document.title = `Timer:
-      ${notNull(counterDays).toString().padStart(2, "0")}:
-      ${notNull(counterHours).toString().padStart(2, "0")}:
-      ${notNull(counterMinutes).toString().padStart(2, "0")}:
-      ${notNull(counterSeconds).toString().padStart(2, "0")}`;
+      ${counterDays.toString().padStart(2, "0")}:
+      ${counterHours.toString().padStart(2, "0")}:
+      ${counterMinutes.toString().padStart(2, "0")}:
+      ${counterSeconds.toString().padStart(2, "0")}`;
   }, 1000);
 
   //stop and clean of inverval
@@ -88,10 +92,10 @@ start.addEventListener("click", () => {
     localStorage.setItem("minutes", counterMinutes);
     localStorage.setItem("hours", counterHours);
     localStorage.setItem("days", counterDays);
-    seconds.textContent = notNull(counterSeconds).toString().padStart(2, "0");
-    minutes.textContent = notNull(counterMinutes).toString().padStart(2, "0");
-    hours.textContent = notNull(counterHours).toString().padStart(2, "0");
-    days.textContent = notNull(counterDays).toString().padStart(2, "0");
+    seconds.textContent = counterSeconds.toString().padStart(2, "0");
+    minutes.textContent = counterMinutes.toString().padStart(2, "0");
+    hours.textContent = counterHours.toString().padStart(2, "0");
+    days.textContent = counterDays.toString().padStart(2, "0");
   });
 });
 
@@ -101,12 +105,8 @@ window.addEventListener("load", () => {
   counterMinutes = localStorage.getItem("minutes");
   counterHours = localStorage.getItem("hours");
   counterDays = localStorage.getItem("days");
-  seconds.textContent = notNull(counterSeconds).toString().padStart(2, "0");
-  minutes.textContent = notNull(counterMinutes).toString().padStart(2, "0");
-  hours.textContent = notNull(counterHours).toString().padStart(2, "0");
-  days.textContent = notNull(counterDays).toString().padStart(2, "0");
+  seconds.textContent = counterSeconds.toString().padStart(2, "0");
+  minutes.textContent = counterMinutes.toString().padStart(2, "0");
+  hours.textContent = counterHours.toString().padStart(2, "0");
+  days.textContent = counterDays.toString().padStart(2, "0");
 });
-
-function notNull(number) {
-  return number == "null" || number == "NaN" ? "00" : number;
-}
