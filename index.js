@@ -17,12 +17,6 @@ let counterHours = 0;
 let counterDays = 0;
 
 //functions and eventsListener
-const lessThanTen = (number) => {
-  if (number < 10) {
-    return `0${number}`;
-  }
-  return number;
-};
 
 start.addEventListener("click", () => {
   // add and remove atributes
@@ -34,32 +28,42 @@ start.addEventListener("click", () => {
   //setInterval of timer
   const timerInterval = setInterval(() => {
     //verify if the vars are equal to 60, if that is true, then reset to 0, and over start again
+
     if (counterSeconds !== 60) {
       counterSeconds++;
-      seconds.textContent = lessThanTen(counterSeconds);
+      seconds.textContent = counterSeconds.toString().padStart(2, "0");
     }
     if (counterSeconds == 60) {
       counterSeconds = 0;
-      seconds.textContent = lessThanTen(counterSeconds);
+      seconds.textContent = counterSeconds.toString().padStart(2, "0");
       counterMinutes++;
-      minutes.textContent = lessThanTen(counterMinutes);
+      minutes.textContent = counterMinutes.toString().padStart(2, "0");
     }
     if (counterMinutes == 60) {
       counterMinutes = 0;
-      minutes.textContent = lessThanTen(counterMinutes);
+      minutes.textContent = counterMinutes.toString().padStart(2, "0");
       counterHours++;
-      hours.textContent = lessThanTen(counterHours);
+      hours.textContent = counterHours.toString().padStart(2, "0");
     }
     if (counterHours == 24) {
       counterHours = 0;
-      hours.textContent = lessThanTen(counterHours);
+      hours.textContent = counterHours.toString().padStart(2, "0");
       counterDays++;
-      days.textContent = lessThanTen(counterDays);
+      days.textContent = counterDays.toString().padStart(2, "0");
     }
 
-    document.title = `Timer: ${lessThanTen(counterDays)}:${lessThanTen(
-      counterHours
-    )}:${lessThanTen(counterMinutes)}:${lessThanTen(counterSeconds)}`;
+    //Set vars on the localStorage
+    localStorage.setItem("seconds", counterSeconds);
+    localStorage.setItem("minutes", counterMinutes);
+    localStorage.setItem("hours", counterHours);
+    localStorage.setItem("days", counterDays);
+
+    //show the same timer but on the page title
+    document.title = `Timer:
+      ${counterDays.toString().padStart(2, "0")}:
+      ${counterHours.toString().padStart(2, "0")}:
+      ${counterMinutes.toString().padStart(2, "0")}:
+      ${counterSeconds.toString().padStart(2, "0")}`;
   }, 1000);
 
   //stop and clean of inverval
@@ -79,10 +83,27 @@ start.addEventListener("click", () => {
     counterMinutes = 0;
     counterHours = 0;
     counterDays = 0;
-
-    seconds.textContent = lessThanTen(counterSeconds);
-    minutes.textContent = lessThanTen(counterMinutes);
-    hours.textContent = lessThanTen(counterHours);
-    days.textContent = lessThanTen(counterDays);
+    //reset and set vars on the local storage
+    localStorage.setItem("seconds", counterSeconds);
+    localStorage.setItem("minutes", counterMinutes);
+    localStorage.setItem("hours", counterHours);
+    localStorage.setItem("days", counterDays);
+    seconds.textContent = counterSeconds.toString().padStart(2, "0");
+    minutes.textContent = counterMinutes.toString().padStart(2, "0");
+    hours.textContent = counterHours.toString().padStart(2, "0");
+    days.textContent = counterDays.toString().padStart(2, "0");
   });
+});
+
+
+window.addEventListener("load", () => {
+  //get and put the vars on the dom when the page loads
+  counterSeconds = localStorage.getItem("seconds");
+  counterMinutes = localStorage.getItem("minutes");
+  counterHours = localStorage.getItem("hours");
+  counterDays = localStorage.getItem("days");
+  seconds.textContent = counterSeconds.toString().padStart(2, "0");
+  minutes.textContent = counterMinutes.toString().padStart(2, "0");
+  hours.textContent = counterHours.toString().padStart(2, "0");
+  days.textContent = counterDays.toString().padStart(2, "0");
 });
