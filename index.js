@@ -15,10 +15,6 @@ let counterSeconds = 0;
 let counterMinutes = 0;
 let counterHours = 0;
 let counterDays = 0;
-localStorage.getItem("seconds");
-localStorage.getItem("minutes");
-localStorage.getItem("hours");
-localStorage.getItem("days");
 
 //functions and eventsListener
 
@@ -101,6 +97,10 @@ start.addEventListener("click", () => {
 
 window.addEventListener("load", () => {
   //get and put the vars on the dom when the page loads
+  localStorage.setItem("seconds", counterSeconds);
+  localStorage.setItem("minutes", counterMinutes);
+  localStorage.setItem("hours", counterHours);
+  localStorage.setItem("days", counterDays);
   counterSeconds = localStorage.getItem("seconds");
   counterMinutes = localStorage.getItem("minutes");
   counterHours = localStorage.getItem("hours");
