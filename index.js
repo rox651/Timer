@@ -16,6 +16,14 @@ let counterMinutes = 0;
 let counterHours = 0;
 let counterDays = 0;
 
+//functions and eventsListener
+const lessThanTen = (number) => {
+  if (number < 10) {
+    return `0${number}`;
+  }
+  return number;
+};
+
 start.addEventListener("click", () => {
   // add and remove atributes
   start.setAttribute("disabled", "disabled");
@@ -25,26 +33,30 @@ start.addEventListener("click", () => {
 
   //setInterval of timer
   const timerInterval = setInterval(() => {
-    seconds.textContent = lessThanTen(counterSeconds);
-    if (counterSeconds == 59) {
+    //verify if the vars are equal to 60, if that is true, then reset to 0, and over start again
+    if (counterSeconds !== 60) {
+      counterSeconds++;
+      seconds.textContent = lessThanTen(counterSeconds);
+    }
+    if (counterSeconds == 60) {
       counterSeconds = 0;
+      seconds.textContent = lessThanTen(counterSeconds);
       counterMinutes++;
       minutes.textContent = lessThanTen(counterMinutes);
-
-      if (counterMinutes == 59) {
-        counterMinutes = 0;
-        counterHours++;
-        hours.textContent = lessThanTen(counterHours);
-
-        if (counterHours == 24) {
-          counterHours = 0;
-          counterDays++;
-          days.textContent = lessThanTen(counterDays);
-        }
-      }
+    }
+    if (counterMinutes == 60) {
+      counterMinutes = 0;
+      minutes.textContent = lessThanTen(counterMinutes);
+      counterHours++;
+      hours.textContent = lessThanTen(counterHours);
+    }
+    if (counterHours == 24) {
+      counterHours = 0;
+      hours.textContent = lessThanTen(counterHours);
+      counterDays++;
+      days.textContent = lessThanTen(counterDays);
     }
 
-    counterSeconds++;
     document.title = `Timer: ${lessThanTen(counterDays)}:${lessThanTen(
       counterHours
     )}:${lessThanTen(counterMinutes)}:${lessThanTen(counterSeconds)}`;
@@ -54,27 +66,23 @@ start.addEventListener("click", () => {
   stop.addEventListener("click", () => {
     //add and remove attributes
     clearInterval(timerInterval);
-
     stop.setAttribute("disabled", "disabled");
     start.removeAttribute("disabled");
   });
-});
 
-//reset the vars and the variables
-reset.addEventListener("click", () => {
-  counterSeconds = 0;
-  counterMinutes = 0;
-  counterHours = 0;
-  counterDays = 0;
-  seconds.textContent = lessThanTen(counterSeconds);
-  minutes.textContent = lessThanTen(counterMinutes);
-  hours.textContent = lessThanTen(counterHours);
-  days.textContent = lessThanTen(counterDays);
-});
+  //reset the vars and the variables
+  reset.addEventListener("click", () => {
+    clearInterval(timerInterval);
+    start.removeAttribute("disabled");
+    stop.setAttribute("disabled", "disabled");
+    counterSeconds = 0;
+    counterMinutes = 0;
+    counterHours = 0;
+    counterDays = 0;
 
-const lessThanTen = (number) => {
-  if (number < 10) {
-    return `0${number}`;
-  }
-  return number;
-};
+    seconds.textContent = lessThanTen(counterSeconds);
+    minutes.textContent = lessThanTen(counterMinutes);
+    hours.textContent = lessThanTen(counterHours);
+    days.textContent = lessThanTen(counterDays);
+  });
+});
