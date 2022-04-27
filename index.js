@@ -108,5 +108,5 @@ window.addEventListener("load", () => {
 });
 
 function notNull(number) {
-  return number == null || number == NaN ? "00" : number;
+  return number == "null" || number == "NaN" ? "00" : number;
 }
