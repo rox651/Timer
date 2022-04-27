@@ -17,7 +17,17 @@ let counterHours = 0;
 let counterDays = 0;
 
 //functions and eventsListener
-
+window.addEventListener("load", () => {
+  //get and put the vars on the dom when the page loads
+  counterSeconds = localStorage.getItem("seconds");
+  counterMinutes = localStorage.getItem("minutes");
+  counterHours = localStorage.getItem("hours");
+  counterDays = localStorage.getItem("days");
+  seconds.textContent = counterSeconds.toString().padStart(2, "0");
+  minutes.textContent = counterMinutes.toString().padStart(2, "0");
+  hours.textContent = counterHours.toString().padStart(2, "0");
+  days.textContent = counterDays.toString().padStart(2, "0");
+});
 start.addEventListener("click", () => {
   // add and remove atributes
   start.setAttribute("disabled", "disabled");
@@ -88,22 +98,6 @@ start.addEventListener("click", () => {
     localStorage.setItem("minutes", counterMinutes);
     localStorage.setItem("hours", counterHours);
     localStorage.setItem("days", counterDays);
-    seconds.textContent = counterSeconds.toString().padStart(2, "0");
-    minutes.textContent = counterMinutes.toString().padStart(2, "0");
-    hours.textContent = counterHours.toString().padStart(2, "0");
-    days.textContent = counterDays.toString().padStart(2, "0");
-  });
-
-  window.addEventListener("load", () => {
-    //get and put the vars on the dom when the page loads
-    localStorage.setItem("seconds", counterSeconds);
-    localStorage.setItem("minutes", counterMinutes);
-    localStorage.setItem("hours", counterHours);
-    localStorage.setItem("days", counterDays);
-    counterSeconds = localStorage.getItem("seconds");
-    counterMinutes = localStorage.getItem("minutes");
-    counterHours = localStorage.getItem("hours");
-    counterDays = localStorage.getItem("days");
     seconds.textContent = counterSeconds.toString().padStart(2, "0");
     minutes.textContent = counterMinutes.toString().padStart(2, "0");
     hours.textContent = counterHours.toString().padStart(2, "0");
